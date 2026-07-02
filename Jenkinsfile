@@ -14,14 +14,19 @@ pipeline {
             }
         }
         
-        stage('Installation & Tests Unitaires') {
+        stage('Installation & Tests') {
             steps {
-                echo 'Installation des dépendances...'
+                echo 'Installation...'
                 sh 'npm install'
                 
-                echo 'Exécution des tests unitaires avec Vitest...'
-                // Exécute les tests (Assure-toi que "test" est bien défini dans les scripts de ton package.json)
-                sh 'npm run test' 
+                echo 'Tests Unitaires...'
+                sh 'npm run test'
+                
+                echo 'Génération de la couverture...'
+                sh 'npm run test:coverage'
+                
+                echo 'Tests E2E...'
+                sh 'npm run test:e2e'
             }
         }
         
