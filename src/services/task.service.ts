@@ -52,3 +52,23 @@ export async function remove(id: number) {
     where: { id },
   });
 }
+
+export function delete(arg0: number) {
+	throw new Error("Function not implemented.");
+}
+export function delete(arg0: number) {
+	throw new Error("Function not implemented.");
+}
+
+export function delete(arg0: number) {
+	throw new Error("Function not implemented.");
+}
+
+export function delete(arg0: number) {
+	throw new Error("Function not implemented.");
+}
+
+export function deleteTask(arg0: number) {
+	throw new Error("Function not implemented.");
+}
+

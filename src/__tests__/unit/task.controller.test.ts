@@ -62,10 +62,41 @@ describe("TaskController", () => {
 		});
 	});
 
-	// ... TODO: Add more tests
-	/*
 	describe("getTaskById", () => {
-		...	
-	});
-	*/
+        it("should return 200 with the task if found", async () => {
+            mockService.findById.mockResolvedValue(mockTask);
+            const req = createMockRequest({ params: { id: "1" } });
+            const res = createMockResponse();
+
+            await taskController.getTaskById(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith(mockTask);
+        });
+    });
+
+    describe("createTask", () => {
+        it("should return 201 with the created task", async () => {
+            mockService.create.mockResolvedValue(mockTask);
+            const req = createMockRequest({ body: { title: "New Task", description: "Desc" } });
+            const res = createMockResponse();
+
+            await taskController.createTask(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(201);
+            expect(res.json).toHaveBeenCalledWith(mockTask);
+        });
+    });
+
+    describe("deleteTask", () => {
+        it("should return 204 when task is deleted", async () => {
+            mockService.remove.mockResolvedValue(true); // Assure-toi que remove est mocké
+            const req = createMockRequest({ params: { id: "1" } });
+            const res = createMockResponse();
+
+            await taskController.deleteTask(req, res);
+
+            expect(res.status).toHaveBeenCalledWith(204);
+        });
+    });
 });

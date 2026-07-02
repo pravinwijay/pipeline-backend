@@ -35,10 +35,37 @@ describe("Task API E2E Tests", () => {
 		});
 	});
 
-	// ... TODO: Add more tests
-	/*
 	describe("GET /api/tasks", () => {
-		...	
-	});
-	*/
+        it("should return all tasks", async () => {
+            // 1. On crée une tâche d'abord
+            await testPrisma.task.create({
+                data: { title: "Task 1", description: "Desc 1" }
+            });
+
+            // 2. On vérifie qu'elle est bien récupérée
+            const res = await request(app).get("/api/tasks");
+
+            expect(res.status).toBe(200);
+            expect(Array.isArray(res.body)).toBe(true);
+            expect(res.body[0].title).toBe("Task 1");
+        });
+    });
+
+    describe("DELETE /api/tasks/:id", () => {
+        it("should delete a task", async () => {
+            // 1. On crée une tâche
+            const task = await testPrisma.task.create({
+                data: { title: "Delete Me", description: "Desc" }
+            });
+
+            // 2. On la supprime
+            const res = await request(app).delete(`/api/tasks/${task.id}`);
+
+            expect(res.status).toBe(204);
+
+            // 3. Vérification qu'elle n'existe plus
+            const check = await testPrisma.task.findUnique({ where: { id: task.id } });
+            expect(check).toBeNull();
+        });
+    });
 });

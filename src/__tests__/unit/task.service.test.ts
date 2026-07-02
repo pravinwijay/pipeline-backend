@@ -49,10 +49,38 @@ describe("TaskService", () => {
 		});
 	});
 
-	// ... TODO: Add more tests
-	/*
 	describe("findById", () => {
-		...	
-	});
-	*/
+        it("should return a task by id", async () => {
+            (mockPrisma.task.findUnique as any).mockResolvedValue(mockTask);
+
+            const result = await taskService.findById(1);
+
+            expect(result).toEqual(mockTask);
+            expect(mockPrisma.task.findUnique).toHaveBeenCalledWith({ where: { id: 1 } });
+        });
+    });
+
+    describe("create", () => {
+        it("should create a new task", async () => {
+            (mockPrisma.task.create as any).mockResolvedValue(mockTask);
+
+            const result = await taskService.create({ title: "Test Task", description: "A test task description" });
+
+            expect(result).toEqual(mockTask);
+            expect(mockPrisma.task.create).toHaveBeenCalledWith({
+                data: { title: "Test Task", description: "A test task description" },
+            });
+        });
+    });
+
+    describe("delete", () => {
+        it("should delete a task", async () => {
+            (mockPrisma.task.delete as any).mockResolvedValue(mockTask);
+
+            // Remplace "taskService.delete(1)" par "taskService.deleteTask(1)"
+            await taskService.deleteTask(1); 
+
+            expect(mockPrisma.task.delete).toHaveBeenCalledWith({ where: { id: 1 } });
+        });
+    });
 });
