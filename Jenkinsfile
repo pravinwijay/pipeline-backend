@@ -29,8 +29,7 @@ pipeline {
             steps {
                 echo 'Analyse SonarQube en cours...'
                 withCredentials([usernamePassword(credentialsId: 'idsonar_pravin93', passwordVariable: 'SONAR_TOKEN', usernameVariable: 'SONAR_USER')]) {
-                    // On utilise le login ET le password pour s'authentifier
-                    sh 'npx sonar-scanner -Dsonar.login=$SONAR_USER -Dsonar.password=$SONAR_TOKEN'
+                    sh 'npx sonar-scanner -Dsonar.token=$SONAR_TOKEN'
                 }
             }
         }
