@@ -90,7 +90,8 @@ describe("TaskController", () => {
 
     describe("deleteTask", () => {
         it("should return 204 when task is deleted", async () => {
-            mockService.remove.mockResolvedValue(true); // Assure-toi que remove est mocké
+            mockService.remove.mockResolvedValue(mockTask); 
+
             const req = createMockRequest({ params: { id: "1" } });
             const res = createMockResponse();
 

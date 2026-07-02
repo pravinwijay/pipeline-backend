@@ -74,13 +74,13 @@ describe("TaskService", () => {
     });
 
     describe("delete", () => {
-        it("should delete a task", async () => {
-            (mockPrisma.task.delete as any).mockResolvedValue(mockTask);
+    it("should delete a task", async () => {
+        (mockPrisma.task.delete as any).mockResolvedValue(mockTask);
 
-            // Remplace "taskService.delete(1)" par "taskService.deleteTask(1)"
-            await taskService.deleteTask(1); 
+        // Utilise le nouveau nom ici
+        await taskService.deleteTask(1); 
 
-            expect(mockPrisma.task.delete).toHaveBeenCalledWith({ where: { id: 1 } });
-        });
+        expect(mockPrisma.task.delete).toHaveBeenCalledWith({ where: { id: 1 } });
     });
+});
 });

@@ -53,22 +53,13 @@ export async function remove(id: number) {
   });
 }
 
-export function delete(arg0: number) {
-	throw new Error("Function not implemented.");
-}
-export function delete(arg0: number) {
-	throw new Error("Function not implemented.");
-}
-
-export function delete(arg0: number) {
-	throw new Error("Function not implemented.");
-}
-
-export function delete(arg0: number) {
-	throw new Error("Function not implemented.");
-}
-
-export function deleteTask(arg0: number) {
-	throw new Error("Function not implemented.");
+export async function deleteTask(id: number) {
+  const existing = await prisma.task.findUnique({ where: { id } });
+  if (!existing) {
+    throw new Error("Task not found");
+  }
+  return prisma.task.delete({
+    where: { id },
+  });
 }
 
